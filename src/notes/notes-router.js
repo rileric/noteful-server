@@ -26,7 +26,6 @@ noteRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    console.log("Post notes " + req.body);
     const { note_name, content, folder_id } = req.body;
     const newNote = { note_name, content, folder_id };
 
@@ -73,7 +72,6 @@ noteRouter
         res.json(serializeNote(res.note));
   })
   .delete( (req, res, next) => {
-      console.log('in router for delete note');
       NotesService.deleteNote(
           req.app.get('db'),
           req.params.note_id

@@ -10,8 +10,6 @@ const notesRouter = require('./notes/notes-router');
 
 const app = express();
 
-myDebug = console.log;
-
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
@@ -33,7 +31,6 @@ app.use(function errorHandler(error, req, res, next) {
         response = {error: {message: 'server error'} };
     }
     else {
-        myDebug("Error handler in app.js");
         console.error(error);
         response = {message: error.message, error};
     }

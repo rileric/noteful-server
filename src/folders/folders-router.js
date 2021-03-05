@@ -7,8 +7,6 @@ const FoldersService = require('./folders-service');
 const foldersRouter = express.Router();
 const jsonParser = express.json();
 
-myDebug = console.log; // TODO
-
 const serializeFolder = folder => ({
   folder_id: folder.folder_id,
   folder_name: xss(folder.folder_name),
@@ -17,15 +15,12 @@ const serializeFolder = folder => ({
 foldersRouter
   .route('/')
   .get((req, res, next) => {
-    myDebug("Received a GET /folders request");
     const knexInstance = req.app.get('db');
     FoldersService.getAllFolders(knexInstance)
       .then(folders => {
-        myDebug(folders);
         res.json(folders.map(serializeFolder))
       })
       .catch(error => {
-        myDebug("There was an error:", error);
         next(error);
       });
   })
